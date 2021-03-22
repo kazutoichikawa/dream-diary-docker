@@ -1,24 +1,47 @@
 # README
+Dream Recorder(夢記録アプリ)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# アプリケーション概要
+夢の記録と、手軽に夢占いをすることができるアプリです
 
-Things you may want to cover:
+# URL
+デプロイ後記述
 
-* Ruby version
+# 要件定義
+一覧表示機能
+投稿機能
+削除機能
+検索機能
+web検索機能 
 
-* System dependencies
+# テーブル設計
 
-* Configuration
+## Dreams テーブル
+| Column   | Type    |Options                    |
+| -------- | ------- | ------------------------- |
+| name     | string  | null:false                |
+| tag      | string  | null:false                |
+| text     | string  | null:false                |
 
-* Database creation
 
-* Database initialization
+### Association
+- has_many :tags, through: :dream_tag_relations
 
-* How to run the test suite
+## Tags テーブル
+| Column        | Type       | Options     |
+| ------------- | ---------- | ----------- |
+| name          | string     | null: false |
 
-* Services (job queues, cache servers, search engines, etc.)
+### Association
+- has_many :dreams, through: :dream_tag_relations
 
-* Deployment instructions
 
-* ...
+## Dream_tag_relations テーブル
+| Column       | Type       | Options           |
+| ------------ | ---------- | ----------------- |
+| tag          | references | foreign_key: true |
+| dream        | references | foreign_key: true |
+
+### Association
+- has_many :dreams
+- has_many :tags
