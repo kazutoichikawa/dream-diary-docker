@@ -6,27 +6,34 @@
     <a class="index-btn btn-pink" @click="openModal">夢を登録する</a>
     <div id="overlay" v-if="modal">
       <div id="content">
-        <p>夢の内容を登録しよう！</p>
-          <input class="title-input" v-model="title" placeholder="夢のタイトルを入力">
-        <div>
-          <textarea class="discription-input" v-model="discription" placeholder="夢の内容を入力" cols="50" rows="10"></textarea>
-        </div>
-        <div class="button-wrapper">
-          <a class="modal-btn btn-pink" @click="closeModal">Close</a>
+        <p>夢の記録しよう！</p>
+        
           
-          <a class="modal-btn btn-pink">
-            <span>
-              登録する
-            </span>
-          </a>
-        </div>
+            <input class="title-input" v-model="dreams_tag.title" placeholder="夢のタイトルを入力">
+
+            <input class="tag-input" v-model="dreams_tag.name" placeholder="タグを入力">
+          <div>
+            <textarea 
+            class="discription-input" 
+            v-model="dreams_tag.discription" 
+            placeholder="夢の内容を入力" cols="50" rows="10"></textarea>
+          </div>
+          <div class="button-wrapper">
+            <a class="modal-btn btn-pink" @click="closeModal">Close</a>
+            
+            <a @click="createDream" class="modal-btn btn-pink">
+              <span>
+                登録する
+              </span>
+            </a>
+          </div>
       </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
-
+import axios from 'axios';
 export default {
   name: 'App',
   components: {
@@ -34,19 +41,39 @@ export default {
   },
   data(){
     return {
+      dreams: [],
       modal: false,
-      title: "",
-      discription: ""
+        dreams_tag: {
+        title: this.title,
+        name: this.name,
+        discription: this.discription
+        }
     }
   },
   methods: {
     openModal() {
-      this.modal = true,
-      console.log ("unko")
+      this.modal = true
     },
     closeModal(){
-      this.modal = false,
-      console.log ("chinko")
+      this.modal = false
+    },
+    getDream(){
+      axios.get('http://localhost:3000/dreams')
+      .then(res => (this.dreams = res.data))
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    createDream(){
+     axios.post('http://localhost:3000/dreams',{
+       dreams_tag: this.dreams_tag
+     })
+     .then(function (response){
+       console.log(response);
+     })
+     .catch(function (error){
+       console.log(error);
+     });
     }
   }
 }
@@ -84,7 +111,11 @@ export default {
 }
 
 .title-input{
-  margin-bottom: 5px;
+  margin: 0 5px 5px 5px;
+}
+
+.tag-input{
+  margin: 0 5px 5px 5px;
 }
 
 .button-wrapper{

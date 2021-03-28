@@ -1,14 +1,20 @@
 class DreamsController < ApplicationController
   def index
-    @dreams = Dream.all.order(created_at: :desc)
+    dreams = Dream.all.order(created_at: :desc)
+    render json: dreams
   end
 
   def create
-    @drams = DreamsTag.new(dream_params)
+    @dream = Dream.new(dream_params)
+    if @dream.save
+      head :no_content
+    else
+      render json: @dream.errors, status: :unprocessable_entity
+    end
   end
 
   private
-  def dream_params	
-    params.require(:dreams_tag).permit(:title, :discription, :name)
+  def dream_params
+    params.fetch(:dream).permit(:title, :discription, :date)
   end
 end
