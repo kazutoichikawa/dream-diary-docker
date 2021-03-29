@@ -7,14 +7,11 @@
     <div id="overlay" v-if="modal">
       <div id="content">
         <p>夢の記録しよう！</p>
-        
-          
             <input class="title-input" v-model="dream.title" placeholder="夢のタイトルを入力">
           <div>
-            <textarea 
+            <textarea
             class="discription-input" 
             v-model="dream.discription" 
-            :format="DatePickerFortmat"
             placeholder="夢の内容を入力" cols="50" rows="10"></textarea>
           </div>
           <div class="button-wrapper">
@@ -28,6 +25,17 @@
           </div>
       </div>
     </div>
+    <h4>夢日記一覧</h4>
+    <div class="card-wrapper">
+      <div class="card" v-for=" dream in dreams" :key="dream.id">
+        <div class="title">
+          タイトル: {{ dream.title }}
+        </div>
+        <div class="discription">
+          ディスクリプション: {{ dream.discription }}
+        </div>
+      </div>
+    </div>
 </div>
 </template>
 
@@ -35,17 +43,18 @@
 import axios from 'axios';
 export default {
   name: 'App',
-  components: {
-  },
   data(){
     return {
-      dreams: [],
+      dreams: "dreams",
       modal: false,
         dream: {
         title: this.title,
         discription: this.discription
         }
     }
+  },
+  mounted(){
+    this.getDream();
   },
   methods: {
     openModal() {
@@ -56,7 +65,9 @@ export default {
     },
     getDream(){
       axios.get('http://localhost:3000/dreams')
-      .then(res => (this.dreams = res.data))
+      .then(res => (this.dreams = res.data,
+      console.log(res)
+      ))
       .catch(err => {
         console.log(err)
       })
@@ -71,6 +82,9 @@ export default {
      .catch(function (error){
        console.log(error);
      });
+     this.dream.title = '';
+     this.dream.discription = '';
+     this.modal = false;
     }
   }
 }
@@ -111,9 +125,7 @@ export default {
   margin: 0 5px 5px 5px;
 }
 
-.tag-input{
-  margin: 0 5px 5px 5px;
-}
+
 
 .button-wrapper{
   display: flex;
@@ -139,5 +151,29 @@ a.btn-pink:hover {
 .index-btn {
   width: 150px;
 }
+
+h4 {
+  padding-left: 10px;
+  text-align: left;
+  width: 150px;
+  border-bottom:1px solid #666666 ;
+}
+.card-wrapper {
+  display: flex;
+  flex-wrap : wrap;
+}
+
+  .card {
+    border: 1px solid #666666;
+    margin: 5px;
+    height: 300px;
+    width: 300px;
+    text-align: left;
+    padding: 8px;
+  }
+
+  .title {
+    border-bottom: 1px solid #666666;
+  }
 
 </style>
