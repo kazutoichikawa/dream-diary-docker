@@ -24,7 +24,7 @@
             </a>
           </div>
       </div>
-    </div>
+    </div> 
     <h4>夢日記一覧</h4>
     <div class="card-wrapper">
       <div class="card" v-for=" dream in dreams" :key="dream.id">
