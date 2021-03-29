@@ -10,30 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_22_165034) do
-
-  create_table "dream_tag_relations", charset: "utf8", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
+ActiveRecord::Schema.define(version: 2021_03_22_165011) do
 
   create_table "dreams", charset: "utf8", force: :cascade do |t|
     t.string "title", null: false
-    t.text "description", null: false
+    t.text "discription", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "tags", charset: "utf8", force: :cascade do |t|
-    t.bigint "dream_id"
-    t.bigint "tag_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["dream_id"], name: "index_tags_on_dream_id"
-    t.index ["tag_id"], name: "index_tags_on_tag_id"
-  end
-
-  add_foreign_key "tags", "dreams"
-  add_foreign_key "tags", "tags"
 end

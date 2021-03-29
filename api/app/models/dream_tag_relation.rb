@@ -1,2 +1,0 @@
-class DreamTagRelation < ApplicationRecord
-end
