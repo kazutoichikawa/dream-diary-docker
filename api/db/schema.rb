@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 2021_03_22_165011) do
   create_table "dreams", charset: "utf8", force: :cascade do |t|
     t.string "title", null: false
     t.text "discription", null: false
-    t.date "date", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -9,13 +9,12 @@
         <p>夢の記録しよう！</p>
         
           
-            <input class="title-input" v-model="dreams_tag.title" placeholder="夢のタイトルを入力">
-
-            <input class="tag-input" v-model="dreams_tag.name" placeholder="タグを入力">
+            <input class="title-input" v-model="dream.title" placeholder="夢のタイトルを入力">
           <div>
             <textarea 
             class="discription-input" 
-            v-model="dreams_tag.discription" 
+            v-model="dream.discription" 
+            :format="DatePickerFortmat"
             placeholder="夢の内容を入力" cols="50" rows="10"></textarea>
           </div>
           <div class="button-wrapper">
@@ -37,15 +36,13 @@ import axios from 'axios';
 export default {
   name: 'App',
   components: {
-    
   },
   data(){
     return {
       dreams: [],
       modal: false,
-        dreams_tag: {
+        dream: {
         title: this.title,
-        name: this.name,
         discription: this.discription
         }
     }
@@ -66,7 +63,7 @@ export default {
     },
     createDream(){
      axios.post('http://localhost:3000/dreams',{
-       dreams_tag: this.dreams_tag
+       dream: this.dream
      })
      .then(function (response){
        console.log(response);
