@@ -38,7 +38,7 @@
           <div class="card-btn btn-pink">
              編集
           </div>
-          <div class="card-btn btn-pink">
+          <div @click="deleteDream(dream.id)" class="card-btn btn-pink">
              削除
           </div>
         </div>
@@ -93,6 +93,20 @@ export default {
      this.dream.title = '';
      this.dream.discription = '';
      this.modal = false;
+     this.getDream()
+    },
+    deleteDream(id) {
+      axios.delete(`http://localhost:3000/dreams/${id}`)
+      .then(function(res){
+        console.log(res)
+      })
+      .catch(function(err){
+        console.log(err)
+      })
+      .finally(() => {
+        console.info('削除完了')
+        this.getDream()
+      })
     }
   }
 }
