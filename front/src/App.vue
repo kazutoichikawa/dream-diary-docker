@@ -24,7 +24,7 @@
             </a>
           </div>
       </div>
-    </div> 
+    </div>
     <h4>夢日記一覧</h4>
     <div class="card-wrapper">
       <div class="card" v-for=" dream in dreams" :key="dream.id">
@@ -33,6 +33,14 @@
         </div>
         <div class="discription">
           ディスクリプション: {{ dream.discription }}
+        </div>
+        <div class="button-wrapper">
+          <div class="card-btn btn-pink">
+             編集
+          </div>
+          <div class="card-btn btn-pink">
+             削除
+          </div>
         </div>
       </div>
     </div>
@@ -130,6 +138,7 @@ export default {
 .button-wrapper{
   display: flex;
   justify-content: space-around;
+  align-items: flex-end;
 }
 
 .modal-btn {
@@ -163,17 +172,21 @@ h4 {
   flex-wrap : wrap;
 }
 
-  .card {
-    border: 1px solid #666666;
-    margin: 5px;
-    height: 300px;
-    width: 300px;
-    text-align: left;
-    padding: 8px;
-  }
+.card {
+  border: 1px solid #666666;
+  margin: 5px;
+  height: 200px;
+  width: 300px;
+  text-align: left;
+  padding: 8px;
+}
 
-  .title {
-    border-bottom: 1px solid #666666;
-  }
-
+.title {
+  border-bottom: 1px solid #666666;
+}
+.card-btn {
+  width: 50px;
+  text-align: center;
+  font-size: 13px;
+}
 </style>
