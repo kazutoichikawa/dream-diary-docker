@@ -22,6 +22,16 @@ class DreamsController < ApplicationController
     end
   end
 
+  def update
+    @dream = Dream.find(params[:id])
+    if @dream.update_attributes(dream_params)
+      render 'index', formats:'json', handlers: 'jbuilder'
+    else
+      render json: @book.errors, status: :unprocessable_entity
+    end
+
+  end
+
   private
   def dream_params
     params.fetch(:dream).permit(:title, :discription, :date)

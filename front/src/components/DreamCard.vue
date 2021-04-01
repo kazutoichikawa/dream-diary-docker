@@ -45,7 +45,8 @@ export default {
         console.info('削除完了')
         this.getDream()
       })
-    }
+    },
+
   }
 }
 </script>
