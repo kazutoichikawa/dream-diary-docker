@@ -8,7 +8,7 @@
           @click="isActive = !isActive"
           height="18">
           <div class="pulldown-menu" v-if="isActive">
-              <li><a class="menu">編集</a></li>
+              <EditModal />
               <li><a @click="deleteDream(dream.id)" class="menu">削除</a></li>
           </div>
         </div>
@@ -21,7 +21,11 @@
 
 <script>
 import axios from 'axios';
+import EditModal from './EditModal'
 export default {
+  components: {
+    EditModal
+  },
   name: 'card',
   props: {
     dream: Object,

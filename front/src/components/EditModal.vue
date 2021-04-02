@@ -1,11 +1,11 @@
 <template>
 <div>
-  <a class="index-btn btn-pink" @click="openModal">夢を登録する</a>
+  <li class="menu" @click="openModal">編集</li>
   <div id="overlay" v-if="modal">
     <div id="content">
-      <p>夢の記録しよう！</p>
+      <div class="form-wrapper">
+      <p>編集</p>
         <input class="title-input" v-model="dream.title" placeholder="夢のタイトルを入力">
-        <div>
           <textarea
           class="discription-input" 
           v-model="dream.discription" 
@@ -16,7 +16,7 @@
           
           <a @click="createDream" class="modal-btn btn-pink">
             <span>
-              登録する
+              編集する
             </span>
           </a>
         </div>
@@ -75,21 +75,19 @@ export default {
   border: 3px solid #666666;
   border-radius: 10px;
 }
+.form-wrapper{
+  text-align: center;
+  
+}
 
 .title-input{
   margin: 0 5px 5px 5px;
 }
 
-
-
 .button-wrapper{
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
-}
-
-.modal-btn {
-  width: 80px;
 }
 
 #overlay{
@@ -104,8 +102,16 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.index-btn {
-  width: 150px;
+
+li {
+  font-size: 14px;
+  border-bottom: 1px solid #666666;
+  padding:0px  5px;
+}
+
+.modal-btn {
+  width: 80px;
+  text-align: center;
 }
 
 .btn-pink,
