@@ -24,16 +24,16 @@ class DreamsController < ApplicationController
 
   def update
     @dream = Dream.find(params[:id])
-    if @dream.update_attributes(dream_params)
-      render 'index', formats:'json', handlers: 'jbuilder'
+    if @dream.update(dream_params)
+      render json: { status: 'SUCCESS', message: 'Updated the post', data: @dream }
     else
-      render json: @book.errors, status: :unprocessable_entity
+      render json: { status: 'SUCCESS', message: 'Not updated', data: @dream.errors }
     end
 
   end
 
   private
   def dream_params
-    params.fetch(:dream).permit(:title, :discription, :date)
+    params.fetch(:dream).permit(:title, :discription)
   end
 end

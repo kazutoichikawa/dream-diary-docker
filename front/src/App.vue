@@ -1,7 +1,6 @@
 <template>
 <div id="app">
   <Header />
-
     <CreateModal
     show="modal"
     :getDream="getDream"

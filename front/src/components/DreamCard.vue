@@ -1,6 +1,5 @@
 <template>
     <div class="card">
-
       <div class="title">
         タイトル: {{ dream.title }}
         <div>
@@ -8,7 +7,12 @@
           @click="isActive = !isActive"
           height="18">
           <div class="pulldown-menu" v-if="isActive">
-              <EditModal />
+              <EditModal
+              :id = dream.id
+              :title = dream.title
+              :discription = dream.discription
+              :getDream="getDream"
+              />
               <li><a @click="deleteDream(dream.id)" class="menu">削除</a></li>
           </div>
         </div>
@@ -28,7 +32,11 @@ export default {
   },
   name: 'card',
   props: {
-    dream: Object,
+    dream: {
+      id :Number,
+      title: String,
+      discription: String
+    },
     getDream: Function
   },
   data() {
@@ -49,8 +57,7 @@ export default {
         console.info('削除完了')
         this.getDream()
       })
-    },
-
+    }
   }
 }
 </script>

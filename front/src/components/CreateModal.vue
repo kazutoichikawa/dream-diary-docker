@@ -80,8 +80,6 @@ export default {
   margin: 0 5px 5px 5px;
 }
 
-
-
 .button-wrapper{
   display: flex;
   justify-content: space-around;

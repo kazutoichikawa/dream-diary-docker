@@ -3,23 +3,21 @@
   <li class="menu" @click="openModal">編集</li>
   <div id="overlay" v-if="modal">
     <div id="content">
-      <div class="form-wrapper">
       <p>編集</p>
         <input class="title-input" v-model="dream.title" placeholder="夢のタイトルを入力">
-          <textarea
-          class="discription-input" 
+        <textarea
+          class="discription-input"
           v-model="dream.discription" 
-          placeholder="夢の内容を入力" cols="50" rows="10"></textarea>
-        </div>
-        <div class="button-wrapper">
-          <a class="modal-btn btn-pink" @click="closeModal">Close</a>
-          
-          <a @click="createDream" class="modal-btn btn-pink">
-            <span>
-              編集する
-            </span>
-          </a>
-        </div>
+          placeholder="夢の内容を入力" cols="50" rows="10">
+        </textarea>
+      <div class="button-wrapper">
+        <a class="modal-btn btn-pink" @click="closeModal">Close</a>
+        <a @click="updateDream(id)" class="modal-btn btn-pink">
+          <span>
+            編集する
+          </span>
+        </a>
+      </div>
     </div>
   </div>
 </div>
@@ -29,16 +27,22 @@
 import axios from 'axios';
 export default {
   props: {
+    id: Number,
+    title: String,
+    discription: String,
     getDream: Function
   },
   data(){
     return {
-      modal: false,
       dream: {
         title: this.title,
         discription: this.discription
-        }
+        },
+      modal: false,
     }
+  },
+  update(){
+    this.getDream
   },
   methods: {
     openModal() {
@@ -47,23 +51,19 @@ export default {
     closeModal(){
       this.modal = false
     },
-    createDream(){
-     axios.post('http://localhost:3000/dreams',{
-       dream: this.dream
-     })
-     .then(function (response){
-       console.log(response);
-     })
-     .catch(function (error){
-       console.log(error);
-     });
-     this.dream.title = '';
-     this.dream.discription = '';
+    updateDream(id){
+    if(!this.dream.title) return;
+    axios.put(`http://localhost:3000/dreams/${id}`, { dream: this.dream })
+    .then(function(res) {
+        console.log(res);
+      })
+    .catch(function(err) {
+        console.log(err);
+      })
      this.modal = false;
      this.getDream()
     }
   }
-  
 }
 </script>
 <style scoped>
@@ -75,13 +75,11 @@ export default {
   border: 3px solid #666666;
   border-radius: 10px;
 }
-.form-wrapper{
-  text-align: center;
-  
-}
+
 
 .title-input{
   margin: 0 5px 5px 5px;
+  display: block;
 }
 
 .button-wrapper{
